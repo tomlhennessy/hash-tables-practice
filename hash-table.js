@@ -50,7 +50,21 @@ class HashTable {
   }
 
   insert(key, value) {
-    // Your code here
+    const index = this.hashMod(key);
+    let currentPair = this.data[index];
+
+    while (currentPair !== null) {
+      if (currentPair.key === key) {
+        currentPair.value = value;
+        return;
+      }
+      currentPair = currentPair.next;
+    }
+
+    const newPair = new KeyValuePair(key, value);
+    newPair.next = this.data[index];
+    this.data[index] = newPair;
+    this.count++;
   }
 
 }
